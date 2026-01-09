@@ -60,17 +60,17 @@ export default function Landing() {
   return (
     <div className="page">
       <div className="card">
-        <h1>Welcome to Gane</h1>
-        <p>Your ultimate gaming platform</p>
+        <h1>⚔️ Realm of Legends ⚔️</h1>
+        <p>Enter a world of magic, creatures, and endless adventure</p>
 
         {user ? (
           <>
             <div className="user-info">
               <p className="user-email">
-                {user.email || 'Guest User'}
+                {user.is_guest ? '🧙 Wandering Mage' : `⭐ ${user.email}`}
               </p>
               {user.is_guest && (
-                <span className="user-badge">Guest</span>
+                <span className="user-badge">🌟 Guest Adventurer</span>
               )}
             </div>
 
@@ -79,13 +79,13 @@ export default function Landing() {
                 className="button button-primary"
                 onClick={handleStartGame}
               >
-                Start Game
+                🗡️ Begin Quest
               </button>
               <button
                 className="button button-danger"
                 onClick={handleLogout}
               >
-                Logout
+                🚪 Leave Realm
               </button>
             </div>
           </>
@@ -96,19 +96,19 @@ export default function Landing() {
                 className="button button-primary"
                 onClick={handlePlayAsGuest}
               >
-                Play as Guest
+                🌙 Enter as Guest
               </button>
               <button
                 className="button button-secondary"
                 onClick={() => navigate('/login')}
               >
-                Login
+                🔮 Login to Realm
               </button>
               <button
                 className="button button-secondary"
                 onClick={() => navigate('/register')}
               >
-                Register
+                ✨ Create Legend
               </button>
             </div>
           </>

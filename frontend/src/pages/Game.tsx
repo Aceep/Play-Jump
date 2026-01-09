@@ -40,29 +40,66 @@ export default function Game() {
   return (
     <div className="page">
       <div className="game-container">
-        <h1>🎮 Game Area</h1>
+        <h1 style={{
+          fontSize: '2.5rem',
+          background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          textAlign: 'center',
+          marginBottom: '20px'
+        }}>
+          🏰 The Arena 🏰
+        </h1>
         
         {user && (
           <div className="user-info" style={{ marginTop: '20px' }}>
-            <p>Playing as: <span className="user-email">{user.email || 'Guest User'}</span></p>
-            {user.is_guest && <span className="user-badge">Guest</span>}
+            <p>
+              Playing as: <span className="user-email">
+                {user.is_guest ? '🧙 Wandering Mage' : `⭐ ${user.email}`}
+              </span>
+            </p>
+            {user.is_guest && <span className="user-badge">🌟 Guest Adventurer</span>}
           </div>
         )}
 
-        <div style={{ marginTop: '40px', padding: '40px', background: '#f8f9ff', borderRadius: '8px' }}>
-          <h2 style={{ color: '#667eea', marginBottom: '16px' }}>Game Coming Soon!</h2>
-          <p style={{ color: '#666', lineHeight: '1.6' }}>
-            This is where the game will be implemented. The authentication system is ready,
-            and you can now focus on building the actual game logic here.
+        <div style={{
+          marginTop: '40px',
+          padding: '40px',
+          background: 'linear-gradient(145deg, rgba(50, 20, 90, 0.6), rgba(30, 10, 60, 0.6))',
+          borderRadius: '12px',
+          border: '2px solid rgba(186, 85, 211, 0.3)',
+          boxShadow: '0 0 30px rgba(138, 43, 226, 0.3)'
+        }}>
+          <h2 style={{
+            background: 'linear-gradient(135deg, #ba55d3, #9370db)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            marginBottom: '16px',
+            fontSize: '1.8rem'
+          }}>
+            🔮 Your Quest Awaits! 🔮
+          </h2>
+          <p style={{ color: '#c7b3e0', lineHeight: '1.8', fontSize: '1.1rem' }}>
+            The realm is yours to explore. Battle mythical creatures 🐉, 
+            discover ancient spells 📜, and forge your legend in this 
+            mystical 2D adventure.
           </p>
-          <p style={{ color: '#666', marginTop: '16px' }}>
-            WebSocket connection endpoint is prepared at <code>/ws</code> for real-time gameplay.
+          <p style={{ color: '#e6d5ff', marginTop: '20px', fontSize: '0.95rem' }}>
+            ⚡ Real-time magic battles via WebSocket at <code style={{
+              background: 'rgba(186, 85, 211, 0.2)',
+              padding: '4px 8px',
+              borderRadius: '4px',
+              color: '#ffd700'
+            }}>/ws</code>
+          </p>
+          <p style={{ color: '#ba55d3', marginTop: '16px', fontStyle: 'italic' }}>
+            ✨ The game world is being enchanted... Stay tuned, brave adventurer!
           </p>
         </div>
 
-        <div style={{ marginTop: '30px' }}>
+        <div style={{ marginTop: '30px', textAlign: 'center' }}>
           <Link to="/" className="button button-secondary">
-            Back to Home
+            🏠 Return to Realm Gate
           </Link>
         </div>
       </div>

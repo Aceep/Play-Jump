@@ -27,27 +27,27 @@ export default function Login() {
   return (
     <div className="page">
       <div className="card">
-        <h1>Login</h1>
-        <p>Welcome back! Please login to your account.</p>
+        <h1>🔮 Enter the Realm 🔮</h1>
+        <p>Welcome back, brave adventurer! Login to continue your quest.</p>
 
         {error && <div className="error">{error}</div>}
 
         <form onSubmit={handleSubmit} className="form">
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">⚡ Mage Name (Email)</label>
             <input
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="your@email.com"
+              placeholder="your@realm.magic"
               disabled={loading}
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">🗝️ Secret Spell</label>
             <input
               id="password"
               type="password"
@@ -65,20 +65,20 @@ export default function Login() {
             className="button button-primary"
             disabled={loading}
           >
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? '✨ Entering...' : '⚔️ Enter Realm'}
           </button>
         </form>
 
         <p className="text-center" style={{ marginTop: '20px' }}>
-          Don't have an account?{' '}
+          New to the realm?{' '}
           <Link to="/register" className="link">
-            Register here
+            ✨ Create your legend
           </Link>
         </p>
 
         <p className="text-center" style={{ marginTop: '10px' }}>
           <Link to="/" className="link">
-            Back to home
+            🏰 Return to Gate
           </Link>
         </p>
       </div>
