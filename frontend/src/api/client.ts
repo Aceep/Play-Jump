@@ -1,4 +1,7 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+// In production (Railway), use relative path since backend serves frontend
+// In development, use localhost:8080
+const API_URL = import.meta.env.VITE_API_URL || 
+  (import.meta.env.PROD ? '' : 'http://localhost:8080');
 
 export interface User {
   id: string;
