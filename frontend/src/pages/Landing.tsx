@@ -60,17 +60,17 @@ export default function Landing() {
   return (
     <div className="page">
       <div className="card">
-        <h1>⚔️ Realm of Legends ⚔️</h1>
+        <h1>Realm of Legends</h1>
         <p>Enter a world of magic, creatures, and endless adventure</p>
 
         {user ? (
           <>
             <div className="user-info">
               <p className="user-email">
-                {user.is_guest ? '🧙 Wandering Mage' : `⭐ ${user.email}`}
+                {user.is_guest ? 'Wandering Adventurer' : user.email}
               </p>
               {user.is_guest && (
-                <span className="user-badge">🌟 Guest Adventurer</span>
+                <span className="user-badge">Guest</span>
               )}
             </div>
 
@@ -79,13 +79,13 @@ export default function Landing() {
                 className="button button-primary"
                 onClick={handleStartGame}
               >
-                🗡️ Begin Quest
+                Begin Quest
               </button>
               <button
                 className="button button-danger"
                 onClick={handleLogout}
               >
-                🚪 Leave Realm
+                Leave Realm
               </button>
             </div>
           </>
@@ -96,19 +96,19 @@ export default function Landing() {
                 className="button button-primary"
                 onClick={handlePlayAsGuest}
               >
-                🌙 Enter as Guest
+                Enter as Guest
               </button>
               <button
                 className="button button-secondary"
                 onClick={() => navigate('/login')}
               >
-                🔮 Login to Realm
+                Login to Realm
               </button>
               <button
                 className="button button-secondary"
                 onClick={() => navigate('/register')}
               >
-                ✨ Create Legend
+                Create Legend
               </button>
             </div>
           </>

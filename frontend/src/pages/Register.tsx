@@ -41,14 +41,14 @@ export default function Register() {
   return (
     <div className="page">
       <div className="card">
-        <h1>✨ Forge Your Legend ✨</h1>
+        <h1>Forge Your Legend</h1>
         <p>Begin your journey in the realm of magic and mystery.</p>
 
         {error && <div className="error">{error}</div>}
 
         <form onSubmit={handleSubmit} className="form">
           <div className="form-group">
-            <label htmlFor="email">⭐ Your Mage Name (Email)</label>
+            <label htmlFor="email">Your Mage Name (Email)</label>
             <input
               id="email"
               type="email"
@@ -61,7 +61,7 @@ export default function Register() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">🗝️ Create Your Spell</label>
+            <label htmlFor="password">Create Your Spell</label>
             <input
               id="password"
               type="password"
@@ -72,13 +72,13 @@ export default function Register() {
               disabled={loading}
               minLength={8}
             />
-            <small style={{ color: '#c7b3e0', fontSize: '0.85rem' }}>
-              ✨ Minimum 8 characters for a strong spell
+            <small style={{ color: '#f4d4b8', fontSize: '0.85rem' }}>
+              Minimum 8 characters for a strong spell
             </small>
           </div>
 
           <div className="form-group">
-            <label htmlFor="confirmPassword">🔐 Confirm Your Spell</label>
+            <label htmlFor="confirmPassword">Confirm Your Spell</label>
             <input
               id="confirmPassword"
               type="password"
@@ -96,20 +96,20 @@ export default function Register() {
             className="button button-primary"
             disabled={loading}
           >
-            {loading ? '✨ Forging legend...' : '🌟 Begin Adventure'}
+            {loading ? 'Forging legend...' : 'Begin Adventure'}
           </button>
         </form>
 
         <p className="text-center" style={{ marginTop: '20px' }}>
           Already a legend?{' '}
           <Link to="/login" className="link">
-            🔮 Enter the realm
+            Enter the realm
           </Link>
         </p>
 
         <p className="text-center" style={{ marginTop: '10px' }}>
           <Link to="/" className="link">
-            🏰 Return to Gate
+            Return to Gate
           </Link>
         </p>
       </div>
