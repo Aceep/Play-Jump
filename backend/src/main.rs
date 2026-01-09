@@ -5,6 +5,7 @@ use axum::{
     extract::{Request, State},
 };
 use tower_http::cors::{CorsLayer, Any};
+use tower_http::services::{ServeDir, ServeFile};
 use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, net::SocketAddr, sync::Arc};
 use tokio::sync::RwLock;
@@ -76,6 +77,12 @@ struct Health {
 async fn main() {
     println!("Starting Gane Backend...");
 
+    // Get port from environment (Railway sets PORT)
+    let port: u16 = std::env::var("PORT")
+        .ok()
+        .and_then(|p| p.parse().ok())
+        .unwrap_or(8080);
+
     // In-memory user store
     let users: UserStore = Arc::new(RwLock::new(HashMap::new()));
 
@@ -84,7 +91,8 @@ async fn main() {
         .allow_methods(Any)
         .allow_headers(Any);
 
-    let app = Router::new()
+    // API routes
+    let api_routes = Router::new()
         .route("/health", get(health_check))
         .route("/api/status", get(api_status))
         .route("/api/auth/register", post(register))
@@ -95,7 +103,13 @@ async fn main() {
         .layer(cors)
         .with_state(users);
 
-    let addr = SocketAddr::from(([0, 0, 0, 0], 8080));
+    // Serve static files (frontend) with fallback to index.html for SPA
+    let static_service = ServeDir::new("static")
+        .not_found_service(ServeFile::new("static/index.html"));
+
+    let app = api_routes.fallback_service(static_service);
+
+    let addr = SocketAddr::from(([0, 0, 0, 0], port));
     println!("Server listening on http://{}", addr);
 
     let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
