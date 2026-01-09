@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { apiClient, User } from '../api/client';
+import CharacterSelector from '../components/CharacterSelector';
+import CharacterRenderer from '../components/CharacterRenderer';
 
 export default function Game() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [selectingCharacter, setSelectingCharacter] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,12 +23,28 @@ export default function Game() {
     try {
       const currentUser = await apiClient.getCurrentUser();
       setUser(currentUser);
+      
+      // Show character selector if user hasn't chosen a character
+      if (!currentUser.character_type) {
+        setSelectingCharacter(true);
+      }
     } catch (error) {
       console.error('Failed to get user:', error);
       apiClient.setToken(null);
       navigate('/');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleCharacterSelect = async (characterType: string) => {
+    try {
+      const updatedUser = await apiClient.selectCharacter(characterType);
+      setUser(updatedUser);
+      setSelectingCharacter(false);
+    } catch (error) {
+      console.error('Failed to select character:', error);
+      alert('Failed to select character. Please try again.');
     }
   };
 
@@ -39,6 +58,13 @@ export default function Game() {
 
   return (
     <div className="page">
+      {selectingCharacter && (
+        <CharacterSelector 
+          onSelect={handleCharacterSelect}
+          isLoading={loading}
+        />
+      )}
+      
       <div className="game-container">
         <h1 style={{
           fontSize: '2.2rem',
@@ -61,6 +87,31 @@ export default function Game() {
               </span>
             </p>
             {user.is_guest && <span className="user-badge">Guest</span>}
+          </div>
+        )}
+
+        {user && user.character_type && (
+          <div style={{ 
+            marginTop: '30px', 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center',
+            gap: '15px'
+          }}>
+            <h3 style={{ 
+              color: '#4ecdc4', 
+              fontSize: '1.3rem',
+              textTransform: 'capitalize'
+            }}>
+              Your Champion: {user.character_type}
+            </h3>
+            <CharacterRenderer characterType={user.character_type} />
+          </div>
+        )}
+        
+        {user && !user.character_type && (
+          <div style={{ marginTop: '30px', padding: '20px', background: 'rgba(255,200,100,0.2)', borderRadius: '8px' }}>
+            <p>No character selected yet. Please select a character first.</p>
           </div>
         )}
 

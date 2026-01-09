@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiClient, User } from '../api/client';
+import CharacterRenderer from '../components/CharacterRenderer';
 
 export default function Landing() {
   const [user, setUser] = useState<User | null>(null);
@@ -62,6 +63,15 @@ export default function Landing() {
       <div className="card">
         <h1>Realm of Legends</h1>
         <p>Enter a world of magic, creatures, and endless adventure</p>
+
+        {user && user.character_type && (
+          <div style={{ margin: '20px auto 10px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+            <span style={{ color: '#4ecdc4', fontWeight: 600, textTransform: 'capitalize' }}>
+              Your Champion: {user.character_type}
+            </span>
+            <CharacterRenderer characterType={user.character_type} width={260} height={220} />
+          </div>
+        )}
 
         {user ? (
           <>

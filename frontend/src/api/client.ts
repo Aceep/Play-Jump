@@ -7,6 +7,7 @@ export interface User {
   id: string;
   email: string | null;
   is_guest: boolean;
+  character_type: string | null;
   created_at: string;
 }
 
@@ -114,6 +115,13 @@ class ApiClient {
 
   async getCurrentUser(): Promise<User> {
     return this.request<User>('/api/auth/me');
+  }
+
+  async selectCharacter(characterType: string): Promise<User> {
+    return this.request<User>('/api/user/character', {
+      method: 'POST',
+      body: JSON.stringify({ character_type: characterType }),
+    });
   }
 
   isAuthenticated(): boolean {
